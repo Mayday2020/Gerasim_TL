@@ -1,22 +1,27 @@
 import React, {useState} from 'react';
 import './App.css';
 import Todolist, {TaskType} from "./Todolist";
+const { v4: uuidv4 } = require('uuid');
+
 
 export type FilterValuesType = 'all' | 'complete' | 'active'
 
 function App() {
     console.log('App rendered')
-
     let [tasks, setTasks] = useState<Array<TaskType>>([
-        {id: 1, title: 'Rick&Morty', isDone: true},
-        {id: 2, title: 'Vikings', isDone: true},
-        {id: 3, title: 'Futurama', isDone: false}
+        {id: uuidv4(), title: 'Rick&Morty', isDone: true},
+        {id: uuidv4(), title: 'Vikings', isDone: true},
+        {id: uuidv4(), title: 'Futurama', isDone: false}
     ])
     let [filter, setFilter] = useState<FilterValuesType>('all')
 
-    function removeTask(id:number) {
+    function removeTask(id:string) {
         let filteredTasks = tasks.filter( t => t.id !== id )
         setTasks(filteredTasks)
+    }
+    function addTask() {
+        let newTask = {id: uuidv4(), title: 'New task', isDone: false}
+        setTasks([newTask, ...tasks])
     }
     function changeFilter(value: FilterValuesType) {
         setFilter(value)
@@ -34,6 +39,7 @@ function App() {
                 title='Movies'
                 tasks={tasksForTodolist}
                 removeTask={removeTask}
+                addTask={addTask}
                 changeFilter={changeFilter}
             />
         </div>
