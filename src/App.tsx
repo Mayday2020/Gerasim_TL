@@ -8,7 +8,7 @@ const {v4: uuidv4} = require('uuid');
 
 
 export type FilterValuesType = 'all' | 'completed' | 'active'
-type TodolistType = {
+export type TodolistType = {
     id: string
     title: string
     filter: FilterValuesType
